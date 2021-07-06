@@ -26,4 +26,14 @@ CloudFormation do
       ]
     end
 
+    record = external_parameters.fetch(:dns_record, 'db-replica')
+
+    Route53_RecordSet(:ReplicaDns) do
+      HostedZoneName FnJoin('', [ Ref('EnvironmentName'), '.', Ref('DnsDomain'), '.'])
+      Name FnJoin('', [ record, '.', Ref('EnvironmentName'), '.', Ref('DnsDomain'), '.' ])
+      Type 'CNAME'
+      TTL 60
+      ResourceRecords [ FnGetAtt("#{component_name}Replica",'Endpoint.Address') ]
+    end
+
 end

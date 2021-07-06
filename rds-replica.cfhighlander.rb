@@ -4,6 +4,7 @@ CfhighlanderTemplate do
     Parameters do
       ComponentParam 'EnvironmentName', 'dev', isGlobal: true
       ComponentParam 'EnvironmentType', 'development', isGlobal: true
+      ComponentParam 'DnsDomain', ''
 
       ComponentParam 'SourceDBIdentifier'
       ComponentParam 'SourceRegion', ''

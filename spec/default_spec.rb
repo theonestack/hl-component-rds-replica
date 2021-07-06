@@ -47,5 +47,19 @@ describe 'should fail to validate with no resources' do
     end
 
   end
+
+  context 'Resource RDS Instance' do
+    let(:properties) { template["Resources"]["ReplicaDns"]["Properties"] }
+
+    it 'has a dns alias record' do
+        expect(properties).to eq({
+          "HostedZoneName" => {"Fn::Join"=>["", [{"Ref"=>"EnvironmentName"}, ".", {"Ref"=>"DnsDomain"}, "."]]},
+          "Name" => {"Fn::Join"=>["", ["db-replica", ".", {"Ref"=>"EnvironmentName"}, ".", {"Ref"=>"DnsDomain"}, "."]]},
+          "ResourceRecords" => [{"Fn::GetAtt"=>["rdsreplicaReplica", "Endpoint.Address"]}],
+          "TTL" => 60,
+          "Type" => "CNAME"
+        })
+    end
+  end
   
 end
