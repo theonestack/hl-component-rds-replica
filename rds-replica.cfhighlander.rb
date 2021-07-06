@@ -8,6 +8,8 @@ CfhighlanderTemplate do
       ComponentParam 'SourceDBIdentifier'
       ComponentParam 'SourceRegion', ''
       ComponentParam 'ReplicaInstanceSize', 'db.t3.small'
+      ComponentParam 'AllocatedStorage', ''
+      ComponentParam 'MaxAllocatedStorage', ''
 
     end
   

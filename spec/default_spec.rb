@@ -25,6 +25,14 @@ describe 'should fail to validate with no resources' do
       expect(properties["DBInstanceClass"]).to eq({"Ref" => "ReplicaInstanceSize"})
     end
 
+    it 'has AllocatedStorage Ref' do
+      expect(properties["AllocatedStorage"]).to eq({"Fn::If" => ["AllocatedStorageSet", {"Ref"=>"AllocatedStorage"}, {"Ref"=>"AWS::NoValue"}]})
+    end
+
+    it 'has MaxAllocatedStorage Ref' do
+      expect(properties["MaxAllocatedStorage"]).to eq({"Fn::If" => ["MaxAllocatedStorageSet", {"Ref"=>"MaxAllocatedStorage"}, {"Ref"=>"AWS::NoValue"}]})
+    end
+
     it 'has default tags' do
       expect(properties["Tags"]).to eq([
         {"Key"=>"Environment", "Value"=>{"Ref"=>"EnvironmentName"}},
