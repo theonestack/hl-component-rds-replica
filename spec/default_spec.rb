@@ -25,6 +25,19 @@ describe 'should fail to validate with no resources' do
       expect(properties["DBInstanceClass"]).to eq({"Ref" => "ReplicaInstanceSize"})
     end
 
+    it 'has default tags' do
+      expect(properties["Tags"]).to eq([
+        {"Key"=>"Environment", "Value"=>{"Ref"=>"EnvironmentName"}},
+        {"Key"=>"EnvironmentType", "Value"=>{"Ref"=>"EnvironmentType"}},
+        {"Key"=>"Name",
+          "Value"=>
+            {"Fn::Join"=>
+              ["-", [{"Ref"=>"EnvironmentName"}, "rds-replica", "replica"]]
+            }
+        }
+      ])
+    end
+
   end
   
 end
